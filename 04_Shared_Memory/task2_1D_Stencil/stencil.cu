@@ -49,8 +49,6 @@ __global__ void stencil_kernel(const float* image, const float* mask, float* out
 	// Synchronize (ensure all the data is available)
     __syncthreads();
 
-	std::printf("block: %d, thread: %d, inD : %d, mask : %d\n", blockIdx.x, threadIdx.x, inD[threadIdx.x], filterD[threadIdx.x]);
-
 	/*
 	// After shared memory data is synchronized, it can do the math
 	for (int k = 0; k < (2*R+1); k++)
@@ -68,8 +66,7 @@ __global__ void stencil_kernel(const float* image, const float* mask, float* out
 __host__ void stencil(const float* image, const float* mask, float* output, unsigned int n, unsigned int R, unsigned int threads_per_block){
 
 	int blockNum = (n + threads_per_block -1)/threads_per_block;
-	
-	std::cout << "blockNum : " << blockNum << std::endl;
+	//std::cout << "blockNum : " << blockNum << std::endl;
 	
 	// Launch the device computation
 	stencil_kernel<<<blockNum, threads_per_block>>>(image, mask, output, n, R);
