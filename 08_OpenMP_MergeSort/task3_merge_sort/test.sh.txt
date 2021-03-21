@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#SBATCH -p wacc
+#SBATCH -t 0-00:20:00
+#SBATCH -J test
+#SBATCH -o test.out -e test.out
+#SBATCH --nodes=1 --cpus-per-task=20
+#SBATCH --mem=16G
+
+g++ mysort.cpp -Wall -O3 -o mysort -fopenmp
+
+./mysort
+
